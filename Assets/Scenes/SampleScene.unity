@@ -1448,8 +1448,7 @@ MonoBehaviour:
   displayProblem: {fileID: 1850775676}
   displayPoints: {fileID: 1326689659}
   answer: {fileID: 630137385}
-  num1: 0
-  num2: 0
+  nums: 
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
