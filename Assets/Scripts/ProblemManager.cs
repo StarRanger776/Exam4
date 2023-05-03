@@ -6,6 +6,8 @@ using TMPro;
 
 public class ProblemManager : MonoBehaviour
 {
+    public TimerManager timerManager;
+
     public int problemsSolved = 0;
     public TMP_Text displayProblem;
     public TMP_Text displayPoints;
@@ -92,6 +94,11 @@ public class ProblemManager : MonoBehaviour
         {
             if(int.Parse(answer.text) == curAnswer)
             {
+                if(timerManager.timerOn == true)
+                {
+                    timerManager.ResetTimer();
+                }
+                StartCoroutine(ColorChange());
                 problemsSolved += 1;
                 answer.text = null;
                 curAnswer = 0;
@@ -105,12 +112,19 @@ public class ProblemManager : MonoBehaviour
                 }
                 else
                 {
-                    int num1 = Random.Range(1, 4);
+                    int num1 = Random.Range(2, 4);
                     int num2 = Random.Range(0, 21);
                     int num3 = Random.Range(0, 2);
                     GenerateProblem(num1, num2, 0, num3);
                 }
             }
         }
+    }
+
+    public IEnumerator ColorChange()
+    {
+        displayPoints.color = Color.yellow;
+        yield return new WaitForSeconds(1);
+        displayPoints.color = Color.white;
     }
 }
