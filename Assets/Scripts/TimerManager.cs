@@ -30,7 +30,9 @@ public class TimerManager : MonoBehaviour
             }
             else
             {
-                StopCoroutine(Timer());
+                StopAllCoroutines();
+                fastestTime = -1;
+                timeSeconds = 0;
             }
         }
         if (timerOn == true)

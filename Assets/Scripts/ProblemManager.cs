@@ -27,6 +27,10 @@ public class ProblemManager : MonoBehaviour
     void Update()
     {
         displayPoints.text = $"Problems solved: {problemsSolved}";
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     public void GenerateProblem(int numNum, int highRange, int lowRange, int symbol)
