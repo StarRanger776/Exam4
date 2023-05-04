@@ -12,6 +12,7 @@ public class ProblemManager : MonoBehaviour
     public TMP_Text displayProblem;
     public TMP_Text displayPoints;
     public TMP_InputField answer;
+    public int answerInt;
 
     public int[] nums;
     public int curAnswer;
@@ -90,15 +91,15 @@ public class ProblemManager : MonoBehaviour
 
     public void EnterAnswer()
     {
-        if(answer.text != null)
+        if(answer.text != null && int.TryParse(answer.text, out answerInt))
         {
-            if(int.Parse(answer.text) == curAnswer)
+            if(answerInt == curAnswer)
             {
                 if(timerManager.timerOn == true)
                 {
                     timerManager.ResetTimer();
                 }
-                StartCoroutine(ColorChange());
+                StartCoroutine(CorrectColorChange());
                 problemsSolved += 1;
                 answer.text = null;
                 curAnswer = 0;
@@ -118,13 +119,24 @@ public class ProblemManager : MonoBehaviour
                     GenerateProblem(num1, num2, 0, num3);
                 }
             }
+            else
+            {
+                StartCoroutine(IncorrectColorChange());
+            }
         }
     }
 
-    public IEnumerator ColorChange()
+    public IEnumerator CorrectColorChange()
     {
         displayPoints.color = Color.yellow;
         yield return new WaitForSeconds(1);
         displayPoints.color = Color.white;
+    }
+
+    public IEnumerator IncorrectColorChange()
+    {
+        displayProblem.color = Color.red;
+        yield return new WaitForSeconds(1);
+        displayProblem.color = Color.white;
     }
 }
